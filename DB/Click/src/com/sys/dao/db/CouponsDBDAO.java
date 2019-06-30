@@ -62,7 +62,6 @@ public class CouponsDBDAO implements CouponsDAO {
 				+ "description, start_date, end_Date, amount, price, image)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-			// pstmt = prepareStmt(pstmt, coupon);
 			pstmt.setInt(1, coupon.getCompanyID());
 			pstmt.setInt(2, coupon.getCategory().ordinal() + 1);
 			pstmt.setString(3, coupon.getTitle());
@@ -98,7 +97,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		String sql = "UPDATE coupons SET company_id=?, category_id=?, title=?, description=?, start_date=?, end_date=?, amount=?, price=?, image=? WHERE id=?";
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-			// prepareStmt(pstmt, coupon);
 			pstmt.setInt(1, coupon.getCompanyID());
 			pstmt.setInt(2, coupon.getCategory().ordinal() + 1);
 			pstmt.setString(3, coupon.getTitle());
@@ -152,6 +150,13 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
+	/**
+	 * This method return list of coupons of company according the company id
+	 * 
+	 * @param companyId
+	 * @return
+	 * @throws CouponSystemException
+	 */
 	public ArrayList<Coupon> getAllCoupon(int companyId) throws CouponSystemException {
 		String sql = "SELECT * FROM coupons WHERE COMPANY_ID=?";
 		Connection con = connectionPool.getConnection();
@@ -172,6 +177,15 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
+	/**
+	 * This method return list of coupons of company according the company id, and
+	 * the category required
+	 * 
+	 * @param companyId
+	 * @param category
+	 * @return
+	 * @throws CouponSystemException
+	 */
 	public ArrayList<Coupon> getAllCoupon(int companyId, Categories category) throws CouponSystemException {
 		String sql = "SELECT * FROM coupons WHERE COMPANY_ID=? AND CATEGORY_ID=?";
 		Connection con = connectionPool.getConnection();
@@ -193,6 +207,15 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
+	/**
+	 * This method return list of coupons of company according the company id. The
+	 * list contains only coupons with price under or equal the maxPrice parameter
+	 * 
+	 * @param companyId
+	 * @param maxPrice
+	 * @return
+	 * @throws CouponSystemException
+	 */
 	public ArrayList<Coupon> getAllCoupon(int companyId, Double maxPrice) throws CouponSystemException {
 		String sql = "SELECT * FROM coupons WHERE COMPANY_ID=? AND PRICE<=?";
 		Connection con = connectionPool.getConnection();
@@ -311,27 +334,14 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
-	public PreparedStatement prepareStmt(PreparedStatement pstmt, Coupon coupon) throws CouponSystemException {
-
-		try {
-			// pstmt.setInt(1, coupon.getCompanyID());
-			pstmt.setInt(1, coupon.getCategory().ordinal());
-			pstmt.setString(2, coupon.getTitle());
-			pstmt.setString(3, coupon.getDescription());
-			pstmt.setDate(4, coupon.getStartDate());
-			pstmt.setDate(5, coupon.getEndDate());
-			pstmt.setInt(6, coupon.getAmount());
-			pstmt.setDouble(7, coupon.getPrice());
-			pstmt.setString(8, coupon.getImage());
-			pstmt.setInt(9, coupon.getId());
-
-			return pstmt;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new CouponSystemException("Prepare the statement failed");
-		}
-	}
-
+	/**
+	 * This method created to improve the readability of "getOneCoupon" method
+	 * 
+	 * @param rs
+	 * @param coupon
+	 * @return Coupon
+	 * @throws CouponSystemException
+	 */
 	public Coupon setCoupon(ResultSet rs, Coupon coupon) throws CouponSystemException {
 		try {
 			coupon.setId(rs.getInt("id"));

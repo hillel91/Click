@@ -1,7 +1,6 @@
 package com.sys.beans;
 
 import java.io.Serializable;
-//import java.util.Date;
 import java.sql.Date;
 
 import com.sys.categories.Categories;
@@ -14,8 +13,6 @@ public class Coupon implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private CompanyFacad companyFacade;
-
 	private int id;
 	private int companyID;
 	private String categoryName;
@@ -29,15 +26,11 @@ public class Coupon implements Serializable {
 	private String image;
 
 	public Coupon() throws CouponSystemException {
-		companyFacade = new CompanyFacad(companyID);
+		new CompanyFacad(companyID);
 	}
 
 	public Coupon(int companyID) throws CouponSystemException {
 		this.companyID = companyID;
-		/*
-		 * companyFacade = new CompanyFacad(companyID); Company company =
-		 * companyFacade.getCompanyDetails(companyID);
-		 */
 	}
 
 	public Coupon(int id, int categoryId) {
@@ -45,9 +38,6 @@ public class Coupon implements Serializable {
 		this.id = id;
 		this.category = getThisCategory(categoryId);
 		this.categoryName = this.category.toString();
-		// coupon.setCategory(Category.values()[rs.getInt("category_ID")]);
-		// this.category = this.category.values()[categoryId];
-		// this.category = category;
 	}
 
 	public Coupon(int id, int categoryId, String title) {
@@ -55,7 +45,6 @@ public class Coupon implements Serializable {
 		this.id = id;
 		this.category = getThisCategory(categoryId);
 		this.categoryName = this.category.toString();
-//		this.category = category;
 		this.title = title;
 	}
 
@@ -64,7 +53,6 @@ public class Coupon implements Serializable {
 		this.id = id;
 		this.category = getThisCategory(categoryId);
 		this.categoryName = this.category.toString();
-		// this.category = category;
 		this.title = title;
 		this.description = description;
 	}
@@ -75,7 +63,6 @@ public class Coupon implements Serializable {
 		this.setCategoryId(categoryId);
 		this.category = getThisCategory(categoryId);
 		this.categoryName = this.category.toString();
-		// this.category = category;
 		this.title = title;
 		this.description = description;
 		this.startDate = startDate;
@@ -89,7 +76,6 @@ public class Coupon implements Serializable {
 		this.companyID = companyID;
 		this.category = getThisCategory(categoryId);
 		this.categoryName = this.category.toString();
-		// this.category = category;
 		this.title = title;
 		this.description = description;
 		this.amount = amount;
@@ -103,8 +89,6 @@ public class Coupon implements Serializable {
 		this.id = id;
 		this.companyID = companyID;
 		this.category = getThisCategory(categoryId);
-		// this.categoryName = this.category.toString();
-		// this.category = category;
 		this.title = title;
 		this.description = description;
 		this.startDate = startDate;
@@ -187,7 +171,7 @@ public class Coupon implements Serializable {
 	}
 
 	public void setCategoryId(int categoryId) {
-		// this.category =
+		this.category = getThisCategory(categoryId);
 
 	}
 

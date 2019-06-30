@@ -26,24 +26,24 @@ public class TestCustomersFacade {
 		System.out.println();
 
 		Coupon coupon = new Coupon(218, 207, 6, "Vacation", "Vacation Description", java.sql.Date.valueOf("2019-06-01"),
-				java.sql.Date.valueOf("2019-06-30"), 10, 40.0, "http");
+				java.sql.Date.valueOf("2019-07-10"), 10, 40.0, "http");
 		couponsDBDAO.addCoupon(coupon);
 		customerFacade.purchaseCoupon(coupon, customer.getId());
 
 		Coupon coupon2 = new Coupon(219, 207, 5, "Food  Title", "Food Description", java.sql.Date.valueOf("2019-06-01"),
-				java.sql.Date.valueOf("2019-06-30"), 15, 350.0, "http");
+				java.sql.Date.valueOf("2019-07-10"), 15, 350.0, "http");
 		couponsDBDAO.addCoupon(coupon2);
 		customerFacade.purchaseCoupon(coupon2, customer.getId());
 		Coupon coupon3 = new Coupon(219, 207, 3, "Design T", "Design  D", java.sql.Date.valueOf("2019-06-01"),
-				java.sql.Date.valueOf("2019-06-30"), 20, 3000.0, "http");
+				java.sql.Date.valueOf("2019-07-10"), 20, 3000.0, "http");
 		couponsDBDAO.addCoupon(coupon3);
 		customerFacade.purchaseCoupon(coupon3, customer.getId());
 		Coupon coupon4 = new Coupon(219, 207, 2, "Cars T", "Cars  D", java.sql.Date.valueOf("2019-06-01"),
-				java.sql.Date.valueOf("2019-06-30"), 10, 9000.0, "http");
+				java.sql.Date.valueOf("2019-07-10"), 10, 9000.0, "http");
 		couponsDBDAO.addCoupon(coupon4);
 		customerFacade.purchaseCoupon(coupon4, customer.getId());
 		Coupon coupon5 = new Coupon(219, 207, 0, "Computers T", "Computers D", java.sql.Date.valueOf("2019-06-01"),
-				java.sql.Date.valueOf("2019-06-30"), 10, 2500.0, "http");
+				java.sql.Date.valueOf("2019-07-10"), 10, 2500.0, "http");
 		couponsDBDAO.addCoupon(coupon5);
 		customerFacade.purchaseCoupon(coupon5, customer.getId());
 

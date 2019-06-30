@@ -11,14 +11,12 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import com.sys.connections.ConnectionPool;
-import com.sys.dao.CouponsDAO;
 import com.sys.exceptions.CouponSystemException;
 import com.sys.exceptions.GetConnectionException;
 
 public class CouponExpirationDailyJob extends TimerTask implements Runnable {
 
 	private ConnectionPool connectionPool;
-	private CouponsDAO couponsDAO;
 	private boolean quit;
 
 	public CouponExpirationDailyJob() throws CouponSystemException, GetConnectionException {
@@ -72,7 +70,7 @@ public class CouponExpirationDailyJob extends TimerTask implements Runnable {
 	}
 
 	public void deleteFromCouponsTable(Date currentDate) throws CouponSystemException {
-		String sql = "DELETE FROM coupons WHERE end_date<CURRENT_DATE";
+		String sql = "DELETE FROM coupons WHERE end_date<CURRENT_DATE"; // CURRENT_DATE is a saved phrase in sql
 		Connection con = connectionPool.getConnection();
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.executeUpdate();

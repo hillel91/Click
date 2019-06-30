@@ -218,36 +218,6 @@ public class CustomersDBDAO implements CustomersDAO {
 		}
 	}
 
-	// מקבל מטבלת לקוחות את האיי-די של הקופונים שהקטגוריה שלהם היא זו המבוקשת ואז
-	// לוקח מטבלת הרכישות את הקופונים שהאיי-די של הלקוח שווה למבוקש והאיי די של
-	// הקופון שווה למה שקיבלנו
-	/*
-	 * public ArrayList<Coupon> getCustomerCoupons(int customerId, Categories
-	 * category) throws CouponSystemException { String sqlFromCoupons =
-	 * "SELECT * FROM coupons WHERE CATEGORY_ID=?"; String sqlFromCustomersVsCoupons
-	 * = "SELECT * FROM customers_vs_coupons WHERE customer_id=? AND coupon_id=?";
-	 * Connection con = connectionPool.getConnection(); try (PreparedStatement pstmt
-	 * = con.prepareStatement(sqlFromCoupons)) { pstmt.setInt(1,
-	 * category.ordinal()); ResultSet rs = pstmt.executeQuery(); ArrayList<Coupon>
-	 * couponsList = new ArrayList<>(); ArrayList<Integer> idCouponsList = new
-	 * ArrayList<>(); ArrayList<Integer> couponIdList = new ArrayList<>(); while
-	 * (rs.next()) { couponsList.add(new Coupon(rs.getInt("id"),
-	 * rs.getInt("company_id"), rs.getInt("category_ID"), rs.getString("title"),
-	 * rs.getString("description"), rs.getDate("start_date"),
-	 * rs.getDate("end_date"), rs.getInt("amount"), rs.getDouble("price"),
-	 * rs.getString("image"))); idCouponsList.add(rs.getInt("id")); } for (int i =
-	 * 0; i < idCouponsList.size(); i++) { try (PreparedStatement pstmt2 =
-	 * con.prepareStatement(sqlFromCustomersVsCoupons)) { pstmt2.setInt(1,
-	 * customerId); pstmt2.setInt(2, idCouponsList.get(i)); ResultSet rs2 =
-	 * pstmt.executeQuery(); while (rs2.next()) { couponIdList.add(rs.getInt(2)); }
-	 * } } for (Coupon currCoupon : couponsList) { for (int i = 0; i <
-	 * couponIdList.size(); i++) { if (currCoupon.getId() != couponIdList.get(i)) {
-	 * couponsList.remove(currCoupon); } } } return couponsList; } catch
-	 * (SQLException e) { throw new
-	 * CouponSystemException("'Get list of coupons' failed", e); } finally {
-	 * connectionPool.restoreConnection(con); } }
-	 */
-
 	public ArrayList<Coupon> getCustomerCoupons(int customerId, Categories category) throws CouponSystemException {
 		String sql = "select co.* from coupons co JOIN customers_vs_coupons cvc "
 				+ "ON co.id=cvc.coupon_id where cvc.customer_id=? AND co.category_id=?";

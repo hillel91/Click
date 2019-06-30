@@ -22,6 +22,10 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	}
 
 	@Override
+	/**
+	 * This method checks if email or password of company exists, according the
+	 * company id.
+	 */
 	public boolean isCompanyExists(String data, String check) throws CouponSystemException {
 
 		String sql = "SELECT id from companies where " + data + "=?";
@@ -37,6 +41,14 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 	}
 
+	/**
+	 * This method gives the ability to check if a company is exists according the
+	 * company's id
+	 * 
+	 * @param companyId
+	 * @return boolean
+	 * @throws CouponSystemException
+	 */
 	public boolean isCompanyExists(int companyId) throws CouponSystemException {
 
 		String sql = "SELECT id from companies where id=?";
@@ -52,6 +64,16 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 	}
 
+	/**
+	 * This method created to improve the efficient by giving the opportunity to get
+	 * answer for login/exist without the need of send parametrs to another method
+	 * 
+	 * @param data
+	 * @param attribute
+	 * @param check     //check="login" or "something else"
+	 * @return
+	 * @throws CouponSystemException
+	 */
 	public boolean checkLoginOrIsExists(String data, String attribute, String check) throws CouponSystemException {
 		boolean loginTrue = false;
 		String sql = "SELECT * FROM companies WHERE " + attribute + "=?";
@@ -71,8 +93,15 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 		return loginTrue;
 	}
-	
 
+	/**
+	 * 
+	 * @param email
+	 * @param password
+	 * @param check
+	 * @return
+	 * @throws CouponSystemException
+	 */
 	public boolean loginOrIsExists(String email, String password, String check) throws CouponSystemException {
 		boolean loginTrue = false;
 		loginTrue = checkLoginOrIsExists(email, "email", "login");
@@ -138,6 +167,17 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 	}
 
+	/**
+	 * This method makes the preparation of deletes coupons from customer_vs_coupon
+	 * Table and coupons table. It is possible to use "join" require, instead of do
+	 * the long way I did here, but in this way I showed my understanding how the
+	 * process goes. In other places of the system (like
+	 * com.sys.dao.db.CouponsDBDAO.isPurchaseExists), I used join require.
+	 * 
+	 * @param companyId
+	 * @param con
+	 * @throws CouponSystemException
+	 */
 	public void deleteCouponsOfCompany(int companyId, Connection con) throws CouponSystemException {
 		String sql = "SELECT * FROM coupons WHERE id=?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -162,6 +202,16 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		System.out.println("Succeed to delete from Coupon table");
 	}
 
+	/**
+	 * This method created in order to improve the readability and make the code
+	 * shorter of the methods "deleteCouponsFromCustomerVsCouponTable" and
+	 * "deleteCouponsFromCouponTable", which have the same purpose.
+	 * 
+	 * @param rs
+	 * @param con
+	 * @param sql
+	 * @throws CouponSystemException
+	 */
 	public void doStatement(ResultSet rs, Connection con, String sql) throws CouponSystemException {
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			Set<Integer> couponsIdSet = new HashSet<>();
