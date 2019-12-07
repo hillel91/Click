@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <cors enabled="true" failUnlistedOrigins="true">
+            <add origin="*" />
+            <add origin="http://*.microsoft.com"
+                 allowCredentials="true"
+                 maxAge="120"> 
+                <allowHeaders allowAllRequestedHeaders="true">
+                    <add header="header1" />
+                    <add header="header2" />
+                </allowHeaders>
+                <allowMethods>
+                     <add method="DELETE" />
+                </allowMethods>
+                <exposeHeaders>
+                    <add header="header1" />
+                    <add header="header2" />
+                </exposeHeaders>
+            </add>
+            <add origin="http://*" allowed="true"  />
+        </cors>
+    </system.webServer>
+</configuration>
